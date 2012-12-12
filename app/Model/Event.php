@@ -7,6 +7,16 @@ App::uses('HttpSocket', 'Network/Http');
  */
 class Event extends AppModel {
 
+	public $order = array('Event.id DESC');
+
+	public $actsAs = array('Search.Searchable');
+
+	public $filterArgs = array(
+		'title' => array('type' => 'like', 'field' => array('Event.title', 'Event.description')),
+		'from' => array('type' => 'value', 'field' => 'Event.started_at >='),
+		'to' => array('type' => 'value', 'field' => 'Event.started_at <='),
+	);
+
 /**
  * Validation rules
  *

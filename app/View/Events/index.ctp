@@ -1,60 +1,80 @@
 <div class="row-fluid">
-	<div class="span9">
-		<h2><?php echo __('List %s', __('Events'));?></h2>
+	<div class="span12">
+		<h2><?php echo $this->Html->link('Event Map', array('action' => 'index')) ?></h2>
 
-		<p>
-			<?php echo $this->BootstrapPaginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')));?>
-		</p>
+		<?php echo $this->Form->create('Event', array('action'=>'index', 'class' => 'form-horizontal')); ?>
+		<fieldset>
+			<legend>検索条件</legend>
+			<?php echo $this->Form->input('Event.title', array('label' => 'イベント名')); ?>
+			<div class="control-group">
+				<?php echo $this->Form->label('Event.started_at', '対象期間', array('class' => 'control-label')); ?>
+				<div class="controls">
+				<?php echo $this->Form->text('from'); ?>
+				<?php echo $this->Form->text('to'); ?>
+				<?php echo $this->Form->error('from'); ?>
+				<?php echo $this->Form->error('to'); ?>
+				</div>
+			</div>
+		</fieldset>
+		<?php echo $this->Form->end('検索'); ?>
 
-		<table class="table">
+		<table class="table table-hover table-bordered">
 			<tr>
-				<th><?php echo $this->BootstrapPaginator->sort('id');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('event_id');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('service_provider');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('title');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('description');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('event_url');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('started_at');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('ended_at');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('place');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('created');?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('modified');?></th>
-				<th class="actions"><?php echo __('Actions');?></th>
+				<th><?php echo $this->Paginator->sort('id', 'ID');?></th>
+				<th><?php echo $this->Paginator->sort('title', 'イベント名');?></th>
+				<th><?php echo $this->Paginator->sort('started_at', '開始日');?></th>
+				<th><?php echo $this->Paginator->sort('ended_at', '終了日');?></th>
 			</tr>
 		<?php foreach ($events as $event): ?>
 			<tr>
-				<td><?php echo h($event['Event']['id']); ?>&nbsp;</td>
-				<td>
-					<?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'view', $event['Event']['id'])); ?>
-				</td>
-				<td><?php echo h($event['Event']['service_provider']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['title']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['description']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['event_url']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['started_at']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['ended_at']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['place']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['created']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['modified']); ?>&nbsp;</td>
-				<td class="actions">
-					<?php echo $this->Html->link(__('View'), array('action' => 'view', $event['Event']['id'])); ?>
-					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $event['Event']['id'])); ?>
-					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $event['Event']['id']), null, __('Are you sure you want to delete # %s?', $event['Event']['id'])); ?>
-				</td>
+				<td><?php echo h($event['Event']['id']); ?></td>
+				<td><?php echo $this->Html->link(h($event['Event']['title']), array('action' => 'view', $event['Event']['id'])); ?></td>
+				<td><?php echo h($event['Event']['started_at']); ?></td>
+				<td><?php echo h($event['Event']['ended_at']); ?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
 
-		<?php echo $this->BootstrapPaginator->pagination(); ?>
-	</div>
-	<div class="span3">
-		<div class="well" style="padding: 8px 0; margin-top:8px;">
-		<ul class="nav nav-list">
-			<li class="nav-header"><?php echo __('Actions'); ?></li>
-			<li><?php echo $this->Html->link(__('New %s', __('Event')), array('action' => 'add')); ?></li>
-			<li><?php echo $this->Html->link(__('List %s', __('Events')), array('controller' => 'events', 'action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('New %s', __('Event')), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		</ul>
-		</div>
+		<?php echo $this->Paginator->pagination(); ?>
 	</div>
 </div>
+
+
+<?php
+$this->Html->css('http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css', null, array('block' => 'css'));
+$this->Html->script(
+	array('http://code.jquery.com/ui/1.9.1/jquery-ui.js',
+		'http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js'),
+	array('block' => 'script')
+);
+?>
+<?php $this->start('script'); ?>
+<script>
+$(function() {
+	$("#EventFrom").datepicker({
+		defaultDate: "+1w",
+		changeMonth: false,
+		numberOfMonths: 2,
+		dateFormat: "yy-mm-dd",
+		showOtherMonths: true,
+		selectOtherMonths: true,
+		onClose: function(s) {
+			if (s) {
+				$("#EventTo").datepicker("option", "minDate", s).focus();
+			}
+		}
+	});
+	$("#EventTo").datepicker({
+		defaultDate: "+1w",
+		changeMonth: false,
+		numberOfMonths: 2,
+		dateFormat: "yy-mm-dd",
+		showOtherMonths: true,
+		selectOtherMonths: true,
+		onClose: function(s) {
+			$("#EventFrom").datepicker("option", "maxDate", s);
+		}
+	});
+});
+</script>
+<?php $this->end(); ?>

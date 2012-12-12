@@ -13,6 +13,10 @@ class EventsController extends AppController {
 		'Zusaar' => 'http://www.zusaar.com/api/event/'
 	);
 
+	public $components = array('Search.Prg');
+
+	public $presetVars = true;
+
 /**
  * index method
  *
@@ -20,6 +24,10 @@ class EventsController extends AppController {
  */
 	public function index() {
 		$this->Event->recursive = 0;
+		$this->Prg->commonProcess();
+		$this->paginate = array(
+			'conditions' => $this->Event->parseCriteria($this->passedArgs)
+		);
 		$this->set('events', $this->paginate());
 	}
 
