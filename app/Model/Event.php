@@ -23,6 +23,16 @@ class Event extends AppModel {
  * @var array
  */
 	public $validate = array(
+		'service_provider_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'event_id' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -32,6 +42,21 @@ class Event extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+		),
+	);
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'ServiceProvider' => array(
+			'className' => 'ServiceProvider',
+			'foreignKey' => 'service_provider_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		),
 	);
 
@@ -46,12 +71,12 @@ class Event extends AppModel {
 		foreach ($events as $event) {
 			$result = $this->find('first', array('conditions' => array(
 				'event_id' => $event['event_id'],
-				'service_provider' => $sp
+				'service_provider_id' => $sp
 			)));
 			if ($result) {
 				$this->id = $result['Event']['id'];
 			} else {
-				$event['service_provider'] = $sp;
+				$event['service_provider_id'] = $sp;
 			}
 			$this->save(array('Event' => $event));
 			$this->create();
@@ -63,9 +88,9 @@ class Event extends AppModel {
 		$delete_at = date("Y-m-d", strtotime("-$previous_to month"));
 		$conditions = array('ended_at <' => $delete_at);
 		$this->deleteAll($conditions);
-		
+
 		// TODO サイトから削除されたイベントをデータベースから削除する作業が必要か検討
-		
+
 		return true;
 	}
 
@@ -78,7 +103,7 @@ class Event extends AppModel {
 			$params = $params . ",$ym";
 		}
 		$params = $params . "&count=100";
-		
+
 		$events = array();
 		while (true) {
 			$result = $this->request_sp($params, $target);
@@ -89,9 +114,9 @@ class Event extends AppModel {
 			}
 			if ($result['results_returned'] == 100) {
 				$matches = null;
-				if (preg_match('/start=([0-9])/', $params, $matches)) {
+				if (preg_match('/start=(\d+)/', $params, $matches)) {
 					$start = $matches[1] + 100;
-					$params = preg_replace('/start=([0-9])/', "start=$start", $params);
+					$params = preg_replace('/start=(\d+)/', "start=$start", $params);
 				} else {
 					$params = $params . '&start=101';
 				}
@@ -99,12 +124,12 @@ class Event extends AppModel {
 				break;
 			}
 		}
-		
+
 		return $events;
 	}
 
 	private function request_sp($params, $target) {
-		$response = $this->Http->get("$target?", $params);
+		$response = $this->Http->get($target, $params);
 		$body = $response->body();
 		return json_decode($body, true);
 	}

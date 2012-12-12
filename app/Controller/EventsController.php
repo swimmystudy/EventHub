@@ -6,12 +6,6 @@ App::uses('AppController', 'Controller');
  * @property Event $Event
  */
 class EventsController extends AppController {
-	
-	public $events_target = array(
-		'Atnd' => 'http://api.atnd.org/events/',
-		'Connpass' => 'http://connpass.com/api/v1/event/',
-		'Zusaar' => 'http://www.zusaar.com/api/event/'
-	);
 
 	public $components = array('Search.Prg');
 
@@ -159,13 +153,15 @@ class EventsController extends AppController {
  * @return void
  */
 	public function update() {
-		foreach ($this->events_target as $sp => $url) {
+		$this->Event->ServiceProvider->displayField = 'api_url';
+		$serviceProviders = $this->Event->ServiceProvider->find('list');
+		foreach ($serviceProviders as $sp => $url) {
 			$this->Event->update($sp, $url);
 		}
-		
+
 		// 過去のイベント情報も保持しておく
 		//$this->EventCache->delete_old_cache();
-		
+
 		return new CakeResponse(array('body' => true));
 	}
 }
