@@ -5,9 +5,19 @@
 		<?php echo $this->Form->create('Event', array('action'=>'index', 'class' => 'form-horizontal')); ?>
 		<fieldset>
 			<legend>検索条件</legend>
-			<?php echo $this->Form->input('Event.title', array('label' => 'イベント名')); ?>
 			<div class="control-group">
-				<?php echo $this->Form->label('Event.started_at', '対象期間', array('class' => 'control-label')); ?>
+				<?php echo $this->Form->label('keyword', 'キーワード', array('class' => 'control-label')); ?>
+				<div class="controls">
+				<?php echo $this->Form->text('keyword'); ?>
+				<?php
+					$options = array('and' => 'AND', 'or' => 'OR');
+					$attributes = array('default' => 'and', 'class' => 'radio inline');
+					echo $this->Form->radio('andor', $options, $attributes);
+				?>
+				</div>
+			</div>
+			<div class="control-group">
+				<?php echo $this->Form->label('Event.from', '対象期間', array('class' => 'control-label')); ?>
 				<div class="controls">
 				<?php echo $this->Form->text('from'); ?>
 				<?php echo $this->Form->text('to'); ?>
@@ -15,6 +25,7 @@
 				<?php echo $this->Form->error('to'); ?>
 				</div>
 			</div>
+			<?php echo $this->Form->input('service_provider_id', array('label' => '対象サービス', 'multiple' => 'checkbox', 'default' => array_keys($serviceProviders), 'class' => 'checkbox inline')); ?>
 		</fieldset>
 		<?php echo $this->Form->end('検索'); ?>
 

@@ -7,9 +7,19 @@ App::uses('AppController', 'Controller');
  */
 class EventsController extends AppController {
 
-	public $components = array('Search.Prg');
+	public $components = array('Search.Prg' => array(
+		'commonProcess' => array(
+			'paramType' => 'querystring',
+		)
+	));
 
-	public $presetVars = true;
+	public $presetVars = array(
+		'service_provider_id' => array('type' => 'checkbox', 'empty' => true),
+		'keyword' => array('type' => 'value', 'empty' => true),
+		'andor' => array('type' => 'value', 'empty' => true),
+		'from' => array('type' => 'value', 'empty' => true),
+		'to' => array('type' => 'value', 'empty' => true),
+	);
 
 /**
  * index method
@@ -18,9 +28,23 @@ class EventsController extends AppController {
  */
 	public function index() {
 		$this->Event->recursive = 0;
+		$serviceProviders = $this->Event->ServiceProvider->find('list');
+		$this->set('serviceProviders', $serviceProviders);
+
+		if (!empty($this->request->data['Event']['service_provider_id']) and array_diff(array_keys($serviceProviders), $this->request->data['Event']['service_provider_id']) == false) {
+			unset($this->request->data['Event']['service_provider_id']);
+		}
 		$this->Prg->commonProcess();
+		$req = $this->request->query;
+		if (!empty($this->request->query['keyword'])) {
+			$andor = !empty($this->request->query['andor']) ? $this->request->query['andor'] : null;
+			$word = $this->Event->multipleKeywords($this->request->query['keyword'], $andor);
+			$req = array_merge($req, array("word" => $word));
+		}
 		$this->paginate = array(
-			'conditions' => $this->Event->parseCriteria($this->passedArgs)
+			'conditions' => $this->Event->parseCriteria($req),
+			'paramType' => 'querystring',
+//			'limit' => 2,
 		);
 		$this->set('events', $this->paginate());
 	}

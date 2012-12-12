@@ -12,7 +12,8 @@ class Event extends AppModel {
 	public $actsAs = array('Search.Searchable');
 
 	public $filterArgs = array(
-		'title' => array('type' => 'like', 'field' => array('Event.title', 'Event.description')),
+		'service_provider_id' => array('type' => 'subquery', 'method' => 'findByServiceProviders', 'field' => 'Event.service_provider_id'),
+		'word' => array('type' => 'like', 'field' => array('Event.title', 'Event.description'), 'connectorAnd' => '+', 'connectorOr' => ','),
 		'from' => array('type' => 'value', 'field' => 'Event.started_at >='),
 		'to' => array('type' => 'value', 'field' => 'Event.started_at <='),
 	);
@@ -59,6 +60,35 @@ class Event extends AppModel {
 			'order' => ''
 		),
 	);
+
+/**
+ * multipleKeywords method
+ *
+ * @param string $keyword Input value
+ * @param array $option Advanced search and/or
+ * @return string Value for the search process
+ */
+	public function multipleKeywords($keyword, $andor = null) {
+		$connector = ($andor === 'or') ? ',' : '+';
+		$keyword = preg_replace('/\s+/', $connector, trim(mb_convert_kana($keyword, 's', 'UTF-8')));
+		return $keyword;
+	}
+
+/**
+ * findByServiceProviders method
+ *
+ * @param array $data Data for a field.
+ * @param array $field Info for field.
+ * @return string Subquery
+ */
+	public function findByServiceProviders($data = array(), $field = array()) {
+		$this->ServiceProvider->Behaviors->attach('Search.Searchable');
+		$query = $this->ServiceProvider->getQuery('all', array(
+			'conditions' => array('ServiceProvider.id'  => explode('|', $data[$field['name']])),
+			'fields' => array('ServiceProvider.id'),
+		));
+		return $query;
+	}
 
 	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
