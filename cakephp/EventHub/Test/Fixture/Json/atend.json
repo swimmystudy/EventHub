@@ -1,0 +1,33 @@
+{
+    "results_start": 1,
+    "results_returned": 10,
+    "events": [
+        {
+            "hash_tag": "phpdemo",
+            "confined_biziq": false,
+            "owner_nickname": "DEMO USER1",
+            "lat": 0,
+            "catch": "PHP勉強会#1、CakePHP #2",
+            "accepted": 30,
+            "owner_twitter_img": "",
+            "owner_twitter_id": "Tukimikage",
+            "title": "PHPの勉強会",
+            "waiting": 4,
+            "deleted_at": null,
+            "started_at": "2013-10-12T13:30:00+09:00",
+            "recommended_twitter_account": "",
+            "place": "どこかの会場",
+            "lon": 0,
+            "limit": 30,
+            "description": "h2.ここにタイトル ",
+            "event_url": "http://atnd.org/events/43750",
+            "address": "福岡市中央区天神",
+            "url": "",
+            "updated_at": "2013-10-12T13:17:24+09:00",
+            "ended_at": "2013-10-12T18:00:00+09:00",
+            "owner_id": 138942,
+            "event_id": 43750
+        },
+    ],
+    "results_available": 3680
+}

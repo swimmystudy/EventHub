@@ -2,6 +2,18 @@
 ======================
 composer update
 
+jenkinsのjob設定
+---------------------------
+・参考URL http://d.hatena.ne.jp/lifegood/20121214/p1
+・ジョブのコピー(開発環境にて)
+jenkins.xml の<customWorkspace></customWorkspace>を自分のパスに変更
+<pre>
+mkdir /var/lib/jenkins/jobs/eventhub
+cp jenkins.xml /var/lib/jenkins/jobs/eventhub/config.xml
+chown jenkins:jenkins -R /var/lib/jenkins/jobs/eventhub/
+service jenkins restart
+</pre>
+
 
 マイグレーション
 ======================
@@ -19,20 +31,17 @@ $ phing build
 $ vendor/bin/cake test app -app cakephp/EventHub/ All
 $ vendor/bin/cake test app -app cakephp/EventHub/ AllController
 $ vendor/bin/cake test app -app cakephp/EventHub/ AllModel
+$ vendor/bin/cake test app -app cakephp/EventHub/ AllConsole
+$ vendor/bin/cake test app -app cakephp/EventHub/ Console/Command/Task/EventImport
 </pre>
 
 
 
-参考URL http://d.hatena.ne.jp/lifegood/20121214/p1
 
-初期設定
+データの取得
 --------------------------
-・ジョブのコピー(開発環境にて)
-jenkins.xml の<customWorkspace></customWorkspace>を自分のパスに変更
 <pre>
-mkdir /var/lib/jenkins/jobs/eventhub
-cp jenkins.xml /var/lib/jenkins/jobs/eventhub/config.xml
-chown jenkins:jenkins -R /var/lib/jenkins/jobs/eventhub/
-service jenkins restart
+$ vendor/bin/cake -app cakephp/EventHub/ event
 </pre>
+
 
