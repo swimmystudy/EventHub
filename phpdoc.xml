@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>My project</title>
+    <parser>
+        <target>output</target>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+            <extension>ctp</extension>
+        </extensions>
+        <visibility></visibility>
+    </parser>
+    <transformer>
+        <target>output</target>
+    </transformer>
+    <logging>
+        <level>warn</level>
+        <paths>
+            <default>./build/log/phpdoc-{DATE}.log</default>
+            <errors>./build/log/phpdoc-{DATE}.errors.log</errors>
+        </paths>
+    </logging>
+    <transformations>
+        <template name="responsive" />
+    </transformations>
+</phpdoc>
