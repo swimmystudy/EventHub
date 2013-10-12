@@ -11,38 +11,49 @@ build
 nbproject/
 .idea
 
-
-app/config/database.php
+cakephp/EventHub/config/database.php
 
 
 # Cake TMP Dirs
-/app/tmp/*
-!/app/tmp/
+cakephp/EventHub/tmp/*
+!cakephp/EventHub/tmp/
 
-/app/tmp/cache/*
-!/app/tmp/cache/
-!/app/tmp/cache/empty
+cakephp/EventHub/tmp/cache/*
+!cakephp/EventHub/tmp/cache/
+!cakephp/EventHub/tmp/cache/empty
 
-/app/tmp/cache/models/*
-!/app/tmp/cache/models/
-!/app/tmp/cache/models/empty
+cakephp/EventHub/tmp/cache/models/*
+!cakephp/EventHub/tmp/cache/models/
+!cakephp/EventHub/tmp/cache/models/empty
 
-/app/tmp/cache/persistent/*
-!/app/tmp/cache/persistent/
-!/app/tmp/cache/persistent/empty
+cakephp/EventHub/tmp/cache/persistent/*
+!cakephp/EventHub/tmp/cache/persistent/
+!cakephp/EventHub/tmp/cache/persistent/empty
 
-/app/tmp/cache/views/*
-!/app/tmp/cache/views/
-!/app/tmp/cache/views/empty
+cakephp/EventHub/tmp/cache/views/*
+!cakephp/EventHub/tmp/cache/views/
+!cakephp/EventHub/tmp/cache/views/empty
 
-/app/tmp/logs/*
-!/app/tmp/logs/
-!/app/tmp/logs/empty
+cakephp/EventHub/tmp/logs/*
+!cakephp/EventHub/tmp/logs/
+!cakephp/EventHub/tmp/logs/empty
 
-/app/tmp/sessions/*
-!/app/tmp/sessions/
-!/app/tmp/sessions/empty
+cakephp/EventHub/tmp/sessions/*
+!cakephp/EventHub/tmp/sessions/
+!cakephp/EventHub/tmp/sessions/empty
 
-/app/tmp/tests/*
-!/app/tmp/tests/
-!/app/tmp/tests/empty
+cakephp/EventHub/tmp/tests/*
+!cakephp/EventHub/tmp/tests/
+!cakephp/EventHub/tmp/tests/empty
+
+# Cake Plugin Composer
+cakephp/EventHub/Plugin/BoostCake/*
+cakephp/EventHub/Plugin/DebugKit/*
+cakephp/EventHub/Plugin/Migrations/*
+cakephp/EventHub/Plugin/Search/*
+
+composer.lock
+vendor/*
+
+build/*
+!build/empty

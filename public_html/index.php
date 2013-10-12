@@ -35,14 +35,14 @@ if (!defined('DS')) {
  *
  */
 if (!defined('ROOT')) {
-	define('ROOT', dirname(dirname(dirname(__FILE__))));
+	define('ROOT', realpath(__DIR__.'/../cakephp'));
 }
 /**
  * The actual directory name for the "app".
  *
  */
 if (!defined('APP_DIR')) {
-	define('APP_DIR', basename(dirname(dirname(__FILE__))));
+	define('APP_DIR', 'EventHub');
 }
 
 /**
@@ -57,7 +57,7 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  */
 	//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
-
+define('CAKE_CORE_INCLUDE_PATH',__DIR__ . '/../vendor/pear-pear.cakephp.org/CakePHP');
 /**
  * Editing below this line should NOT be necessary.
  * Change at your own risk.

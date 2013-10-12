@@ -1,0 +1,25 @@
+{
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.cakephp.org"
+        }
+    ],
+    "require": {
+        "pear-cakephp/cakephp": "2.4.1",
+        "cakedc/search": "dev-master",
+        "cakephp/debug_kit": "2.2.*@dev",
+        "slywalker/boost_cake": "*",
+        "cakedc/migrations": "dev-develop"
+    },
+    "extra":{
+        "installer-paths":
+        {
+            "cakephp/EventHub/Plugin/Search": ["cakedc/search"],
+            "cakephp/EventHub/Plugin/DebugKit": ["cakephp/debug_kit"],
+            "cakephp/EventHub/Plugin/Migrations": ["cakedc/migrations"],
+            "cakephp/EventHub/Plugin/BoostCake": ["slywalker/boost_cake"]
+        }
+    }
+
+}
