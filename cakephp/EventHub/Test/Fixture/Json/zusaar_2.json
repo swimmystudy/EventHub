@@ -1,0 +1,28 @@
+{
+    "results_start": 1,
+    "event": [
+        {
+            "limit": 20,
+            "lon": 130.39906,
+            "owner_nickname": "ootatter",
+            "waiting": 0,
+            "catch": "",
+            "event_id": "1167003",
+            "url": "",
+            "owner_profile_url": "http://twitter.com/ootatter",
+            "title": "第1回PHPプログラム勉強会",
+            "updated_at": "2013-10-18T12:33:23Z",
+            "accepted": 2,
+            "event_url": "http://www.zusaar.com/event/1234567",
+            "pay_type": "1",
+            "address": "福岡県福岡市中央区天神",
+            "description": "プログラムをもくもくと書く勉強会です。<br><br><br><br>",
+            "ended_at": "2013-10-19T18:00:00+09:00",
+            "owner_id": "agxzfnp1c2Fhci1ocmRyFQsSBFVzZXIiCzcwOTAxODcwX3R3DA",
+            "started_at": "2013-10-19T13:00:00+09:00",
+            "place": "福岡市中央区天神",
+            "lat": 33.591346
+        },
+    ],
+    "results_returned": 10
+}

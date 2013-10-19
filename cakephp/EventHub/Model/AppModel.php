@@ -31,4 +31,12 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+    public function _getTime(){
+        if(!isset($this->_DateTime)){
+            $this->_DateTime = new DateTime();
+        }
+        return $this->_DateTime;
+    }
+
 }

@@ -27,7 +27,9 @@ class EventImportTaskTest extends CakeTestCase {
         parent::setUp();
         $out = $this->getMock('ConsoleOutput', array(), array(), '', false);
         $in  = $this->getMock('ConsoleInput', array(), array(), '', false);
-        $this->Task = new EventImportTask($out, $out, $in);
+
+        $EventImportTask = $this->getMock('EventImportTask', array('requestApi'));
+        $this->Task = $EventImportTask;
         $this->Task->initialize();
     }
 /**
@@ -40,17 +42,65 @@ class EventImportTaskTest extends CakeTestCase {
         parent::tearDown();
     }
 /**
- * @test
- *
+ * json
+ * @return [type] [description]
  */
-    public function 取り込みのテスト(){
-        $Event = $this->getMockForModel('Event', array('send'));
-        $Event->expects($this->once())
-        ->method('send')
-        ->will($this->returnValue(true));
-        var_dump($Event);exit;
-
-        $this->Task->execute();
+    public function json_file($file_name){
+        return json_decode(file_get_contents(TESTS.'Fixture'.DS.'json'.DS.$file_name.'.json'),true);
     }
 
+/**
+ * @test
+ */
+    public function 取得パラメータのテスト(){
+        $DateTime = $this->Task->Event->_getTime();
+        $DateTime->setDate(2012,5,1);
+        $result = $this->Task->buildParams();
+        $this->assertEquals($result,'format=json&ym=201205&count=100');
+
+        $DateTime->setDate(2013,11,1);
+        $result = $this->Task->buildParams();
+        $this->assertEquals($result,'format=json&ym=201311&count=100');
+
+        $result = $this->Task->buildParams(true);
+        $this->assertEquals($result,'format=json&ym=201312&count=100');
+
+        $result = $this->Task->buildParams(true);
+        $this->assertEquals($result,'format=json&ym=201401&count=100');
+
+        $result = $this->Task->buildParams(false,true);
+        $this->assertEquals($result,'format=json&ym=201401&start=101&count=100');
+
+        $result = $this->Task->buildParams(false,true);
+        $this->assertEquals($result,'format=json&ym=201401&start=201&count=100');
+
+        $result = $this->Task->buildParams(true,true);
+        $this->assertEquals($result,'format=json&ym=201402&start=301&count=100');
+
+    }
+/**
+ * @test
+ */
+    public function リクエスト取得のテスト(){
+        $this->Task->expects($this->any())
+        ->method('requestApi')
+        ->will(
+            $this->onConsecutiveCalls(
+                $this->json_file('atend_1'),
+                $this->json_file('atend_2')
+            )
+        );
+        $params = $this->Task->buildParams();
+        $result = $this->Task->requestApi('http://www.zusaar.com/api/event/',$params);
+        var_dump($result);
+        $result = $this->Task->requestApi('http://www.zusaar.com/api/event/',$params);
+        var_dump($result);exit;
+    }
+
+/**
+ * @test
+ */
+    public function サービス毎のデータ取得のテスト(){
+        $this->Task->getByServiceFromApi('http://www.zusaar.com/api/event/');
+    }
 }

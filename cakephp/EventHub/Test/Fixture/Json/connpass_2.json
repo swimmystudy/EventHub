@@ -1,0 +1,33 @@
+{
+    "results_returned": 1,
+    "events": [
+        {
+            "event_url": "http://connpass.com/event/1111/",
+            "event_type": "participation",
+            "owner_nickname": "ootatter",
+            "series": {
+            "url": "http://connpass.com/series/1111/preview/",
+            "id": 1111,
+                "title": "PHP勉強会"
+            },
+            "updated_at": "2013-10-19T14:08:12+09:00",
+            "lat": 33.591346,
+            "started_at": "2013-10-19T13:00:00+09:00",
+            "hash_tag": "php",
+            "title": "PHP勉強会",
+            "event_id": 1111,
+            "lon": 130.39906,
+            "waiting": 0,
+            "limit": null,
+            "owner_id": 9896,
+            "owner_display_name": "ootatter",
+            "description": "<div>プログラムをもくもくと書く勉強会です。</div>",
+            "address": "",
+            "catch": "",
+            "accepted": 0,
+            "ended_at": "2013-10-19T18:00:00+09:00",
+            "place": "未定"
+        }
+    ],
+    "results_returned": 10
+}

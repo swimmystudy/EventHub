@@ -33,6 +33,7 @@ $ vendor/bin/cake test app -app cakephp/EventHub/ AllController
 $ vendor/bin/cake test app -app cakephp/EventHub/ AllModel
 $ vendor/bin/cake test app -app cakephp/EventHub/ AllConsole
 $ vendor/bin/cake test app -app cakephp/EventHub/ Console/Command/Task/EventImport
+$ vendor/bin/cake test app -app cakephp/EventHub/ Model/Event
 </pre>
 
 

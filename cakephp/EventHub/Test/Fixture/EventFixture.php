@@ -4,6 +4,7 @@
  *
  */
 class EventFixture extends CakeTestFixture {
+
 /**
  * Import
  *
@@ -20,16 +21,55 @@ class EventFixture extends CakeTestFixture {
     public $records = array(
         array(
             'id' => 1,
-            'event_id' => 'Lorem ipsum dolor sit amet',
-            'service_provider' => 'Lorem ipsum dolor sit amet',
-            'title' => 'Lorem ipsum dolor sit amet',
-            'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'event_url' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'started_at' => '2012-12-10 18:36:47',
-            'ended_at' => '2012-12-10 18:36:47',
-            'place' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'created' => '2012-12-10 18:36:47',
-            'modified' => '2012-12-10 18:36:47'
+            'service_provider_id' => 1,
+            'event_id' => '1111',
+            'title' => 'テストイベント1',
+            'description' => 'テストイベント1の説明',
+            'event_url' => 'http://demo/1111',
+            'started_at' => '2013-10-19 15:20:52',
+            'ended_at' => '2013-10-19 15:20:52',
+            'place' => '福岡県福岡市',
+            'created' => '2013-10-19 15:20:52',
+            'modified' => '2013-10-19 15:20:52'
+        ),
+        array(
+            'id' => 2,
+            'service_provider_id' => 1,
+            'event_id' => '1112',
+            'title' => 'テストイベント2',
+            'description' => 'テストイベント2の説明',
+            'event_url' => 'http://demo/1112',
+            'started_at' => '2013-11-19 15:20:52',
+            'ended_at' => '2013-11-19 15:20:52',
+            'place' => '福岡県福岡市',
+            'created' => '2013-10-19 15:20:52',
+            'modified' => '2013-10-19 15:20:52'
+        ),
+        array(
+            'id' => 3,
+            'service_provider_id' => 2,
+            'event_id' => '292929',
+            'title' => 'テストイベント',
+            'description' => 'テストイベント3の説明',
+            'event_url' => 'http://demo2/292929',
+            'started_at' => '2013-10-19 15:20:52',
+            'ended_at' => '2013-10-19 15:20:52',
+            'place' => '福岡県福岡市',
+            'created' => '2013-10-19 15:20:52',
+            'modified' => '2013-10-19 15:20:52'
+        ),
+        array(
+            'id' => 4,
+            'service_provider_id' => 2,
+            'event_id' => '292930',
+            'title' => 'テストイベント',
+            'description' => 'テストイベント3の説明',
+            'event_url' => 'http://demo2/292930',
+            'started_at' => '2013-11-19 15:20:52',
+            'ended_at' => '2013-11-19 15:20:52',
+            'place' => '福岡県福岡市',
+            'created' => '2013-10-19 15:20:52',
+            'modified' => '2013-10-19 15:20:52'
         ),
     );
 
