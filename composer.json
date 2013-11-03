@@ -6,7 +6,7 @@
         }
     ],
     "require": {
-        "pear-cakephp/cakephp": "2.4.1",
+        "pear-cakephp/cakephp": "2.4.2",
         "cakedc/search": "dev-master",
         "cakephp/debug_kit": "2.2.*@dev",
         "slywalker/boost_cake": "*",
