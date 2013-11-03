@@ -47,4 +47,9 @@ $ vendor/bin/cake -app cakephp/EventHub/ event
 $ vendor/bin/cake -app cakephp/EventHub/ provider
 </pre>
 
+データの取得(cron)
+--------------------------
+<pre>
+$ vendor/bin/cake -app cakephp/EventHub/ event cron
+</pre>
 

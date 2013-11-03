@@ -28,6 +28,7 @@ class EventImportTask extends AppShell {
         $service_providers = Hash::extract($this->ServiceProvider->find('all'),'{n}.ServiceProvider');
         foreach ($service_providers as $service_provider) {
             $this->getByServiceFromApi($service_provider);
+            $this->reset();
         }
     }
 /**
@@ -62,7 +63,6 @@ class EventImportTask extends AppShell {
                 }
             }
         }
-        $this->reset();
     }
     public function reset(){
         $y = $this->StartDate->format('Y');

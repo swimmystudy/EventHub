@@ -88,7 +88,7 @@ class EventImportTaskTest extends CakeTestCase {
         $this->assertFalse($this->Task->limitDate());
 
         $this->Task->TargetDate->setDate(2014,11,1);
-        $this->assertFalse($this->Task->limitDate());
+        $this->assertTrue($this->Task->limitDate());
 
         $this->Task->TargetDate->setDate(2014,12,1);
         $this->assertTrue($this->Task->limitDate());
@@ -113,7 +113,16 @@ class EventImportTaskTest extends CakeTestCase {
 /**
  * @test
  */
-    public function サービス毎のデータ取得のテスト(){
+    public function サービス毎のループテスト(){
+    }
+
+
+/**
+ * @test
+ */
+    public function 初期化のテスト(){
+        $this->Task->StartDate->setDate(2013,9,1);
+        $this->Task->TargetDate->setDate(2013,9,1);
         $this->Task->expects($this->any())
         ->method('requestApi')
         ->will(
@@ -125,6 +134,12 @@ class EventImportTaskTest extends CakeTestCase {
         $ServiceProviderModel = ClassRegistry::init('ServiceProvider');
         $service_provider = Hash::extract($ServiceProviderModel->find('first'),'ServiceProvider');
         $this->Task->getByServiceFromApi($service_provider);
+        //時間は2ヶ月進んでいる
+        $this->assertEquals('201312',$this->Task->TargetDate->format('Ym'));
+        //時間がリセットされいている
+        $this->Task->reset();
+        $this->assertEquals('201309',$this->Task->TargetDate->format('Ym'));
+
         // $Event = ClassRegistry::init('Event');
         // var_dump($Event->find('count'));exit;
 

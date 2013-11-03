@@ -5,6 +5,14 @@ class EventShell extends AppShell {
     public $tasks = array('EventImport');
 
     public function main($command = null) {
+        if (isset($this->args[0])) {
+            $args = $this->args[0];
+            if($args == 'cron'){
+                $this->EventImport->execute();
+                return;
+            }
+        }
+
         $this->out(__d('cake_console', 'Interactive Import Shell'));
         $this->hr();
         $this->out(__d('cake_console', '[I] インポート'));

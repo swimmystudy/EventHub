@@ -181,3 +181,8 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+
+if(getenv('APPLICATION_ENV') == 'production'){
+    Configure::write('debug',0);
+}
