@@ -53,7 +53,7 @@ class EventImportTaskTest extends CakeTestCase {
  * @test
  */
     public function 取得パラメータのテスト(){
-        $DateTime = $this->Task->Event->_getTime();
+        $DateTime = $this->Task->TargetDate;
         $DateTime->setDate(2012,5,1);
         $result = $this->Task->buildParams();
         $this->assertEquals($result,'format=json&ym=201205&count=100');
@@ -81,6 +81,22 @@ class EventImportTaskTest extends CakeTestCase {
 /**
  * @test
  */
+    public function 最後の月の取得テスト(){
+        $this->Task->StartDate->setDate(2013,11,1);
+
+        $this->Task->TargetDate->setDate(2013,11,1);
+        $this->assertFalse($this->Task->limitDate());
+
+        $this->Task->TargetDate->setDate(2014,11,1);
+        $this->assertFalse($this->Task->limitDate());
+
+        $this->Task->TargetDate->setDate(2014,12,1);
+        $this->assertTrue($this->Task->limitDate());
+    }
+
+/**
+ * @test
+ */
     public function リクエスト取得のテスト(){
         $this->Task->expects($this->any())
         ->method('requestApi')
@@ -92,15 +108,25 @@ class EventImportTaskTest extends CakeTestCase {
         );
         $params = $this->Task->buildParams();
         $result = $this->Task->requestApi('http://www.zusaar.com/api/event/',$params);
-        var_dump($result);
         $result = $this->Task->requestApi('http://www.zusaar.com/api/event/',$params);
-        var_dump($result);exit;
     }
-
 /**
  * @test
  */
     public function サービス毎のデータ取得のテスト(){
-        $this->Task->getByServiceFromApi('http://www.zusaar.com/api/event/');
+        $this->Task->expects($this->any())
+        ->method('requestApi')
+        ->will(
+            $this->onConsecutiveCalls(
+                $this->json_file('zusaar_1'),
+                $this->json_file('zusaar_2')
+            )
+        );
+        $ServiceProviderModel = ClassRegistry::init('ServiceProvider');
+        $service_provider = Hash::extract($ServiceProviderModel->find('first'),'ServiceProvider');
+        $this->Task->getByServiceFromApi($service_provider);
+        // $Event = ClassRegistry::init('Event');
+        // var_dump($Event->find('count'));exit;
+
     }
 }

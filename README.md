@@ -34,6 +34,7 @@ $ vendor/bin/cake test app -app cakephp/EventHub/ AllModel
 $ vendor/bin/cake test app -app cakephp/EventHub/ AllConsole
 $ vendor/bin/cake test app -app cakephp/EventHub/ Console/Command/Task/EventImport
 $ vendor/bin/cake test app -app cakephp/EventHub/ Model/Event
+$ vendor/bin/cake test app -app cakephp/EventHub/ Lib/ApiConvert
 </pre>
 
 
@@ -43,6 +44,7 @@ $ vendor/bin/cake test app -app cakephp/EventHub/ Model/Event
 --------------------------
 <pre>
 $ vendor/bin/cake -app cakephp/EventHub/ event
+$ vendor/bin/cake -app cakephp/EventHub/ provider
 </pre>
 
 
