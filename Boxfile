@@ -20,7 +20,7 @@ web1:
     - "mv cakephp/EventHub/Config/database.php.pagoda cakephp/EventHub/Config/database.php"
   before_deploy:
     # https://github.com/CakeDC/migrations
-    - "cakephp/EventHub/Console/cake Migrations.migration run all"
+    - "vendor/bin/cake -app cakephp/EventHub/ Migrations.migration run all"
   after_deploy:
     - "rm -rf cakephp/EventHub/tmp/cache/models/*"
     - "rm -rf cakephp/EventHub/tmp/cache/persistent/*"
