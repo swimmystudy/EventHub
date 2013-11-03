@@ -16,7 +16,6 @@ web1:
     - apc
     - zip
   after_build:
-    - "if [ ! -f composer.phar ]; then curl -s http://getcomposer.org/installer | php; fi; php composer.phar install"
     - "mv cakephp/EventHub/Config/database.php.pagoda cakephp/EventHub/Config/database.php"
   before_deploy:
     # https://github.com/CakeDC/migrations
@@ -27,6 +26,6 @@ web1:
     - "rm -rf cakephp/EventHub/tmp/cache/views/*"
   # Stop Content-Length header from being set, by default the value is incorrect
   php_zlib_output_compression: On
- 
+
 db1:
   type: mysql
