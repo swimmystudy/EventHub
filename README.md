@@ -20,6 +20,10 @@ service jenkins restart
 <pre>
 wget 'http://192.168.33.21:8080/job/eventhub/build'
 </pre>
+wgetがはいってない場合
+<pre>
+curl 'http://192.168.33.21:8080/job/eventhub/build'
+</pre>
 
 マイグレーション
 ======================
