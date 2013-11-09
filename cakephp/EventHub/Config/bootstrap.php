@@ -186,3 +186,6 @@ CakeLog::config('error', array(
 if(getenv('APPLICATION_ENV') == 'production'){
     Configure::write('debug',0);
 }
+echo '<pre>';
+print_r($_SERVER);
+echo '</pre>';
