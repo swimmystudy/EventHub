@@ -36,6 +36,7 @@
         <table class="table table-hover table-bordered">
             <tr>
                 <th><?php echo $this->Paginator->sort('id', 'ID');?></th>
+                <th><?php echo $this->Paginator->sort('service_provider_id', 'サイト');?></th>
                 <th><?php echo $this->Paginator->sort('title', 'イベント名');?></th>
                 <th><?php echo $this->Paginator->sort('started_at', '開始日');?></th>
                 <th><?php echo $this->Paginator->sort('ended_at', '終了日');?></th>
@@ -43,6 +44,7 @@
         <?php foreach ($events as $event): ?>
             <tr>
                 <td><?php echo h($event['Event']['id']); ?></td>
+                <td><?php echo h($event['ServiceProvider']['name']); ?></td>
                 <td><?php echo $this->Html->link(h($event['Event']['title']), array('action' => 'view', $event['Event']['id'])); ?></td>
                 <td><?php echo h($event['Event']['started_at']); ?></td>
                 <td><?php echo h($event['Event']['ended_at']); ?></td>
