@@ -16,7 +16,7 @@ service jenkins restart
 
 ローカルでjenkinsを動かすコミットhock
 ----------------------------------------
-.git/hooks/post-commit
+.git/hooks/post-update
 <pre>
 wget 'http://192.168.33.21:8080/job/eventhub/build'
 </pre>
