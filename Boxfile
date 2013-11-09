@@ -30,5 +30,7 @@ web1:
   # Stop Content-Length header from being set, by default the value is incorrect
   php_zlib_output_compression: On
 
+  cron:
+    - "30 * * * *": "vendor/bin/cake -app cakephp/EventHub/event cron"
 db1:
   type: mysql
