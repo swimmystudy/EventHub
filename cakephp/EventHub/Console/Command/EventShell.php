@@ -8,7 +8,6 @@ class EventShell extends AppShell {
         if (isset($this->args[0])) {
             $args = $this->args[0];
             if($args == 'cron'){
-                $this->out('インポート処理を開始します');
                 $this->EventImport->execute();
                 return;
             }
@@ -23,6 +22,7 @@ class EventShell extends AppShell {
             }
             switch ($command) {
                 case 'I':
+                    $this->EventImport->resetOutput();
                     $this->EventImport->execute();
                     break;
            }

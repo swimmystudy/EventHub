@@ -3,7 +3,25 @@ App::uses('AppShell','Console/Command');
 App::uses('Event','Model');
 App::uses('HttpSocket', 'Network/Http');
 App::uses('ApiConvert','Lib');
+App::uses('AppConsoleOutput','Console');
+
 class EventImportTask extends AppShell {
+
+    public function __construct($stdout = null, $stderr = null, $stdin = null) {
+        //ファイルがあれば実行中とし、スルーする
+        if(file_exists($this->consolefile())){
+            //@todoスキップした通知
+            exit;
+        }
+        $stdout = new AppConsoleOutput('file://'.$this->consolefile());
+        $stderr = new AppConsoleOutput('file://'.$this->consolefile());
+        parent::__construct($stdout,$stderr,$stdin);
+    }
+    public function __destruct(){
+        $this->stdout->close();
+        $this->stderr->close();
+        @rename($this->consolefile(),TMP.'logs/'.date('ymdhis').'_eventimport.log');
+    }
 
     //最大で取得する条件は1年後まで
     const MAX_TIME_CONDITION = '+2 month';
@@ -25,8 +43,14 @@ class EventImportTask extends AppShell {
  * @return [type] [description]
  */
     public function execute(){
+        $this->out('================================================');
+        $this->out('インポート処理を開始します '.date('Y-m-d H:i:s'));
+        $this->out('================================================');
         $service_providers = Hash::extract($this->ServiceProvider->find('all'),'{n}.ServiceProvider');
         foreach ($service_providers as $service_provider) {
+            $this->out('----------------------------------');
+            $this->out($service_provider['name'].'の処理を開始します');
+            $this->out('----------------------------------');
             $this->getByServiceFromApi($service_provider);
             $this->reset();
         }
@@ -99,6 +123,9 @@ class EventImportTask extends AppShell {
  * @return [type]          [description]
  */
     public function requestApi($api_url,$params=array()) {
+        $this->out('----------------------------------');
+        $this->out($api_url.'にリクエストします');
+        $this->out('----------------------------------');
         $socket   = new HttpSocket();
         $response = $socket->get($api_url, $params);
         $body     = $response->body();
@@ -148,6 +175,10 @@ class EventImportTask extends AppShell {
             )),'Event');
             if($exists){
                 $value['id'] = $exists['id'];
+                $this->out('ID'.$value['id'].'を更新します');
+            }else{
+                $this->out('イベントID'.$value['event_id']);
+                $this->out($value['title'].'を追加します');
             }
             $this->Event->save($value);
             $this->Event->create();

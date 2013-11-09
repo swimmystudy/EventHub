@@ -28,4 +28,30 @@ App::uses('Shell', 'Console');
  */
 class AppShell extends Shell {
 
+/**
+ * [consolefile description]
+ * @return [type] [description]
+ */
+    public function consolefile(){
+        return TMP.get_class($this).'.out';
+    }
+/**
+ * コンソールの出力を戻す
+ * @return [type] [description]
+ */
+    public function resetOutput(){
+        if ($this->stdout) {
+            unset($this->stdout);
+        }
+        if ($this->stderr) {
+            unset($this->stderr);
+        }
+        if ($this->stdin) {
+            unset($this->stdin);
+        }
+        unlink($this->consolefile());
+        $this->stdout = new ConsoleOutput('php://stdout');
+        $this->stderr = new ConsoleOutput('php://stderr');
+        $this->stdin  = new ConsoleInput('php://stdin');
+    }
 }
