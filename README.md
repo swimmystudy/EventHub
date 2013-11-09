@@ -14,6 +14,12 @@ chown jenkins:jenkins -R /var/lib/jenkins/jobs/eventhub/
 service jenkins restart
 </pre>
 
+ローカルでjenkinsを動かすコミットhock
+----------------------------------------
+.git/hooks/post-commit
+<pre>
+wget 'http://192.168.33.21:8080/job/eventhub/build'
+</pre>
 
 マイグレーション
 ======================
